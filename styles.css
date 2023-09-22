@@ -1,13 +1,13 @@
 /* Reset some default styles */
-body, h1, h2, p, ul, li {
+body, h1, h2, p, ul, li, form {
     margin: 0;
     padding: 0;
 }
 
-/* Set a background color and text color for the body */
+/* Set a modern font and background color */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    font-family: "Arial", sans-serif;
+    background-color: #f8f8f8;
     color: #333;
     line-height: 1.6;
     margin: 0;
@@ -23,7 +23,8 @@ header {
 }
 
 header h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
+    margin-bottom: 10px;
 }
 
 header p {
@@ -53,6 +54,7 @@ main {
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
 
 article {
@@ -60,8 +62,9 @@ article {
 }
 
 article h2 {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     margin-bottom: 10px;
+    color: #333;
 }
 
 article .meta {
@@ -73,6 +76,8 @@ article .meta {
 article img {
     max-width: 100%;
     height: auto;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 article p {
@@ -82,7 +87,7 @@ article p {
 }
 
 article a {
-    color: #333;
+    color: #0078d4; /* A sleek blue color for links */
     text-decoration: none;
     font-weight: bold;
 }
