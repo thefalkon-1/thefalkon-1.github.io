@@ -1,3 +1,4 @@
+THEME = "themes/svbhack"
 AUTHOR = 'Dan Falkenheim'
 SITENAME = 'My Website'
 SITEURL = ""
