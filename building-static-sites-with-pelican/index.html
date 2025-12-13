@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Dan Falkenheim">
+  <meta name="description" content="Why I chose Pelican for this blog and how the setup process went.">
+
+  <link rel="stylesheet" href="/theme/css/style.css">
+  <link rel="stylesheet" href="/theme/css/pygments.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Mono&display=swap" rel="stylesheet">
+
+  <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Dan Falkenheim Atom">
+
+  <title>Building Static Sites with Pelican - Dan Falkenheim</title>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-content">
+        <h1 class="site-title"><a href="/">Dan Falkenheim</a></h1>
+        <p class="tagline">thoughts on technology and life</p>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="/">blog</a></li>
+            <li><a href="/about/">about</a></li>
+            <li><a href="/archives.html">archives</a></li>
+          </ul>
+        </nav>
+        <div class="social-links">
+          <a href="https://github.com/thefalkon-1" target="_blank" rel="noopener">GitHub</a>        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+<article class="post">
+  <header class="post-header">
+    <div class="post-date">2024-12-08</div>
+    <h1 class="post-title">Building Static Sites with Pelican</h1>
+  </header>
+
+  <div class="post-content">
+    <p>When I decided to start this blog, I evaluated several static site generators. I landed on Pelican, and here's why.</p>
+<h2>Why Static?</h2>
+<p>Static sites are fast, secure, and cheap to host. There's no database to manage, no server to patch, and sites can be hosted for free on GitHub Pages or similar services.</p>
+<h2>Why Pelican?</h2>
+<p>A few reasons:</p>
+<ol>
+<li><strong>Python-based</strong> - I'm comfortable with Python, so customizing themes and plugins feels natural</li>
+<li><strong>Markdown support</strong> - Writing in Markdown is a joy</li>
+<li><strong>Jinja2 templates</strong> - The templating system is flexible and powerful</li>
+<li><strong>Active community</strong> - Good documentation and plenty of themes/plugins</li>
+</ol>
+<h2>The Setup</h2>
+<p>Getting started was straightforward:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create virtual environment</span>
+python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+
+<span class="c1"># Install Pelican with Markdown support</span>
+pip<span class="w"> </span>install<span class="w"> </span>pelican<span class="w"> </span>markdown
+
+<span class="c1"># Create a new site</span>
+pelican-quickstart
+
+<span class="c1"># Write content and build</span>
+make<span class="w"> </span>html
+make<span class="w"> </span>serve
+</code></pre></div>
+
+<h2>Customization</h2>
+<p>I spent most of my time customizing the theme to get the minimalist look I wanted. Pelican's theming system is flexible—you can override individual templates or create a theme from scratch.</p>
+<p>The result is what you see now: a clean, fast-loading blog that lets the content shine.</p>
+<h2>Deployment</h2>
+<p>GitHub Pages makes deployment trivial. With a simple <code>make github</code> command, the site is built and pushed to the <code>main</code> branch, where GitHub serves it automatically.</p>
+<p>If you're considering starting a blog, I'd recommend giving Pelican a try.</p>
+  </div>
+
+  <footer class="post-footer">
+    <div class="post-tags">
+      Tags: <a href="/tag/python.html">python</a>, <a href="/tag/web.html">web</a>, <a href="/tag/pelican.html">pelican</a>    </div>
+  </footer>
+</article>
+
+<nav class="post-navigation">
+  <a href="/">&larr; Back to all posts</a>
+</nav>
+    </main>
+  </div>
+</body>
+</html>

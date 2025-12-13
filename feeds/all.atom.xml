@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Dan Falkenheim</title><link href="/" rel="alternate"/><link href="/feeds/all.atom.xml" rel="self"/><id>/</id><updated>2024-12-13T00:00:00-05:00</updated><entry><title>Welcome to My Blog</title><link href="/welcome-to-my-blog/" rel="alternate"/><published>2024-12-13T00:00:00-05:00</published><updated>2024-12-13T00:00:00-05:00</updated><author><name>Dan Falkenheim</name></author><id>tag:None,2024-12-13:/welcome-to-my-blog/</id><summary type="html">&lt;p&gt;A brief introduction to this blog and what you can expect to find here.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Welcome! This is the first post on my new blog.&lt;/p&gt;
+&lt;p&gt;I've set up this site to share my thoughts on technology, programming, and various projects I'm working on. Expect posts about:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Software development and engineering practices&lt;/li&gt;
+&lt;li&gt;Interesting problems and their solutions&lt;/li&gt;
+&lt;li&gt;Technology trends and observations&lt;/li&gt;
+&lt;li&gt;Side projects and experiments&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Why a Blog?&lt;/h2&gt;
+&lt;p&gt;In an age of social media, I think there's still value in long-form writing. A blog gives me space to explore ideas in depth, without the constraints of character limits or algorithmic feeds.&lt;/p&gt;
+&lt;h2&gt;What's Next?&lt;/h2&gt;
+&lt;p&gt;I have a few posts in the works already. Stay tuned for deep dives into technical topics and reflections on the craft of building software.&lt;/p&gt;
+&lt;p&gt;Thanks for reading!&lt;/p&gt;</content><category term="General"/><category term="meta"/><category term="introduction"/></entry><entry><title>Thoughts on AI Coding Assistants</title><link href="/thoughts-on-ai-coding-assistants/" rel="alternate"/><published>2024-12-10T00:00:00-05:00</published><updated>2024-12-10T00:00:00-05:00</updated><author><name>Dan Falkenheim</name></author><id>tag:None,2024-12-10:/thoughts-on-ai-coding-assistants/</id><summary type="html">&lt;p&gt;Reflections on how AI coding assistants are changing the way we write software.&lt;/p&gt;</summary><content type="html">&lt;p&gt;AI coding assistants have become remarkably capable in the past year. Tools like GitHub Copilot, Claude, and others are fundamentally changing how developers work.&lt;/p&gt;
+&lt;h2&gt;The Good&lt;/h2&gt;
+&lt;p&gt;The productivity boost is real. For boilerplate code, test writing, and exploring unfamiliar APIs, these tools shine. What used to take 10 minutes of documentation reading can now be done in seconds.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# Example: Generate a function to parse JSON with error handling&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;parse_json_safely&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;json_string&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;dict&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Parse JSON string, returning None on failure.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;loads&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;json_string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;JSONDecodeError&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;The Nuances&lt;/h2&gt;
+&lt;p&gt;But there are subtleties. AI assistants are pattern matchers—they excel at common patterns but can struggle with novel architecture decisions. The best developers I know use these tools as accelerators while maintaining strong mental models of their systems.&lt;/p&gt;
+&lt;h2&gt;Looking Forward&lt;/h2&gt;
+&lt;p&gt;I expect these tools to keep getting better. The key is learning to leverage them effectively while not losing the deep understanding that makes great engineers.&lt;/p&gt;
+&lt;p&gt;What's your experience been with AI coding tools?&lt;/p&gt;</content><category term="Technology"/><category term="ai"/><category term="programming"/><category term="tools"/></entry><entry><title>Building Static Sites with Pelican</title><link href="/building-static-sites-with-pelican/" rel="alternate"/><published>2024-12-08T00:00:00-05:00</published><updated>2024-12-08T00:00:00-05:00</updated><author><name>Dan Falkenheim</name></author><id>tag:None,2024-12-08:/building-static-sites-with-pelican/</id><summary type="html">&lt;p&gt;Why I chose Pelican for this blog and how the setup process went.&lt;/p&gt;</summary><content type="html">&lt;p&gt;When I decided to start this blog, I evaluated several static site generators. I landed on Pelican, and here's why.&lt;/p&gt;
+&lt;h2&gt;Why Static?&lt;/h2&gt;
+&lt;p&gt;Static sites are fast, secure, and cheap to host. There's no database to manage, no server to patch, and sites can be hosted for free on GitHub Pages or similar services.&lt;/p&gt;
+&lt;h2&gt;Why Pelican?&lt;/h2&gt;
+&lt;p&gt;A few reasons:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Python-based&lt;/strong&gt; - I'm comfortable with Python, so customizing themes and plugins feels natural&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Markdown support&lt;/strong&gt; - Writing in Markdown is a joy&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Jinja2 templates&lt;/strong&gt; - The templating system is flexible and powerful&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Active community&lt;/strong&gt; - Good documentation and plenty of themes/plugins&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;The Setup&lt;/h2&gt;
+&lt;p&gt;Getting started was straightforward:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# Create virtual environment&lt;/span&gt;
+python&lt;span class="w"&gt; &lt;/span&gt;-m&lt;span class="w"&gt; &lt;/span&gt;venv&lt;span class="w"&gt; &lt;/span&gt;.venv
+&lt;span class="nb"&gt;source&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;.venv/bin/activate
+
+&lt;span class="c1"&gt;# Install Pelican with Markdown support&lt;/span&gt;
+pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;pelican&lt;span class="w"&gt; &lt;/span&gt;markdown
+
+&lt;span class="c1"&gt;# Create a new site&lt;/span&gt;
+pelican-quickstart
+
+&lt;span class="c1"&gt;# Write content and build&lt;/span&gt;
+make&lt;span class="w"&gt; &lt;/span&gt;html
+make&lt;span class="w"&gt; &lt;/span&gt;serve
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Customization&lt;/h2&gt;
+&lt;p&gt;I spent most of my time customizing the theme to get the minimalist look I wanted. Pelican's theming system is flexible—you can override individual templates or create a theme from scratch.&lt;/p&gt;
+&lt;p&gt;The result is what you see now: a clean, fast-loading blog that lets the content shine.&lt;/p&gt;
+&lt;h2&gt;Deployment&lt;/h2&gt;
+&lt;p&gt;GitHub Pages makes deployment trivial. With a simple &lt;code&gt;make github&lt;/code&gt; command, the site is built and pushed to the &lt;code&gt;main&lt;/code&gt; branch, where GitHub serves it automatically.&lt;/p&gt;
+&lt;p&gt;If you're considering starting a blog, I'd recommend giving Pelican a try.&lt;/p&gt;</content><category term="Technology"/><category term="python"/><category term="web"/><category term="pelican"/></entry><entry><title>The Value of Side Projects</title><link href="/the-value-of-side-projects/" rel="alternate"/><published>2024-12-05T00:00:00-05:00</published><updated>2024-12-05T00:00:00-05:00</updated><author><name>Dan Falkenheim</name></author><id>tag:None,2024-12-05:/the-value-of-side-projects/</id><summary type="html">&lt;p&gt;Why working on side projects has been valuable for my growth as a developer.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Side projects have been one of the most valuable investments in my career. Here's what I've learned about making them worthwhile.&lt;/p&gt;
+&lt;h2&gt;Learning by Doing&lt;/h2&gt;
+&lt;p&gt;The best way to learn a new technology is to build something with it. Reading documentation only goes so far—real understanding comes from hitting roadblocks and solving them.&lt;/p&gt;
+&lt;p&gt;My side projects have taught me:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;How to scope work realistically&lt;/li&gt;
+&lt;li&gt;When to use (and not use) new technologies&lt;/li&gt;
+&lt;li&gt;The importance of finishing things&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;No Stakeholders&lt;/h2&gt;
+&lt;p&gt;Unlike work projects, side projects have no stakeholders except yourself. This freedom is both liberating and dangerous.&lt;/p&gt;
+&lt;p&gt;Liberating because you can experiment freely. Dangerous because there's no external pressure to finish.&lt;/p&gt;
+&lt;h2&gt;Tips for Success&lt;/h2&gt;
+&lt;p&gt;After many abandoned projects, here's what works for me:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Start small&lt;/strong&gt; - Your first version should be embarrassingly minimal&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ship early&lt;/strong&gt; - Deploy something, even if it's basic&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Time-box&lt;/strong&gt; - Give yourself a deadline&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Solve your own problems&lt;/strong&gt; - Projects with personal utility are more likely to get finished&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;This Blog&lt;/h2&gt;
+&lt;p&gt;This blog itself is a side project. Setting it up forced me to learn about static site generators, CSS layouts, and web deployment—skills that have direct professional value.&lt;/p&gt;
+&lt;p&gt;What side projects are you working on?&lt;/p&gt;</content><category term="General"/><category term="career"/><category term="learning"/><category term="projects"/></entry></feed>
