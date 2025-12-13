@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Dan Falkenheim">
+  <meta name="description" content="Reflections on how AI coding assistants are changing the way we write software.">
+
+  <link rel="stylesheet" href="/theme/css/style.css">
+  <link rel="stylesheet" href="/theme/css/pygments.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Mono&display=swap" rel="stylesheet">
+
+
+  <title>Thoughts on AI Coding Assistants - Dan Falkenheim</title>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-content">
+        <h1 class="site-title"><a href="/">Dan Falkenheim</a></h1>
+        <p class="tagline">thoughts on technology and life</p>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="/">blog</a></li>
+            <li><a href="/about/">about</a></li>
+            <li><a href="/archives.html">archives</a></li>
+          </ul>
+        </nav>
+        <div class="social-links">
+          <a href="https://github.com/thefalkon-1" target="_blank" rel="noopener">GitHub</a>        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+<article class="post">
+  <header class="post-header">
+    <div class="post-date">2024-12-10</div>
+    <h1 class="post-title">Thoughts on AI Coding Assistants</h1>
+  </header>
+
+  <div class="post-content">
+    <p>AI coding assistants have become remarkably capable in the past year. Tools like GitHub Copilot, Claude, and others are fundamentally changing how developers work.</p>
+<h2>The Good</h2>
+<p>The productivity boost is real. For boilerplate code, test writing, and exploring unfamiliar APIs, these tools shine. What used to take 10 minutes of documentation reading can now be done in seconds.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example: Generate a function to parse JSON with error handling</span>
+<span class="k">def</span> <span class="nf">parse_json_safely</span><span class="p">(</span><span class="n">json_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse JSON string, returning None on failure.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_string</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div>
+
+<h2>The Nuances</h2>
+<p>But there are subtleties. AI assistants are pattern matchers—they excel at common patterns but can struggle with novel architecture decisions. The best developers I know use these tools as accelerators while maintaining strong mental models of their systems.</p>
+<h2>Looking Forward</h2>
+<p>I expect these tools to keep getting better. The key is learning to leverage them effectively while not losing the deep understanding that makes great engineers.</p>
+<p>What's your experience been with AI coding tools?</p>
+  </div>
+
+  <footer class="post-footer">
+    <div class="post-tags">
+      Tags: <a href="/tag/ai.html">ai</a>, <a href="/tag/programming.html">programming</a>, <a href="/tag/tools.html">tools</a>    </div>
+  </footer>
+</article>
+
+<nav class="post-navigation">
+  <a href="/">&larr; Back to all posts</a>
+</nav>
+    </main>
+  </div>
+</body>
+</html>
