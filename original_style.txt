@@ -1,0 +1,11 @@
+Original Color Scheme (julian theme)
+=====================================
+
+Background:        #fff (white)
+Code background:   #f5f5f5 (light gray)
+Main text:         #4d4d4d (dark gray)
+Headings:          #333 (charcoal)
+Secondary text:    #666 (medium gray)
+Muted text:        #999 (light gray - dates, tagline)
+Borders:           #eee (very light gray)
+Links/Accent:      #0e94ec (blue)
