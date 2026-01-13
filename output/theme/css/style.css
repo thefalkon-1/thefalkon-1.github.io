@@ -14,14 +14,14 @@ body {
   font-family: 'PT Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  color: #7f5539;
-  background: #ede0d4;
+  color: #798777;
+  background: #F8EDE3;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
 a {
-  color: #9c6644;
+  color: #798777;
   text-decoration: none;
 }
 
@@ -43,7 +43,7 @@ a:hover {
   top: 0;
   left: 0;
   height: 100vh;
-  border-right: 1px solid #e6ccb2;
+  border-right: 1px solid #BDD2B6;
 }
 
 .sidebar-content {
@@ -58,17 +58,17 @@ a:hover {
 }
 
 .site-title a {
-  color: #7f5539;
+  color: #798777;
   text-decoration: none;
 }
 
 .site-title a:hover {
-  color: #9c6644;
+  color: #798777;
 }
 
 .tagline {
   margin: 0 0 30px 0;
-  color: #b08968;
+  color: #A2B29F;
   font-size: 0.9rem;
 }
 
@@ -83,26 +83,26 @@ a:hover {
 }
 
 .main-nav a {
-  color: #7f5539;
+  color: #798777;
   font-size: 0.95rem;
 }
 
 .main-nav a:hover {
-  color: #9c6644;
+  color: #798777;
 }
 
 .social-links {
   margin-top: 30px;
   font-size: 0.85rem;
-  color: #b08968;
+  color: #A2B29F;
 }
 
 .social-links a {
-  color: #b08968;
+  color: #A2B29F;
 }
 
 .social-links a:hover {
-  color: #9c6644;
+  color: #798777;
 }
 
 /* Main Content */
@@ -124,7 +124,7 @@ a:hover {
 
 .post-date {
   font-size: 0.85rem;
-  color: #b08968;
+  color: #A2B29F;
   margin-bottom: 5px;
   font-family: 'PT Mono', monospace;
 }
@@ -137,16 +137,16 @@ a:hover {
 }
 
 .post-title a {
-  color: #7f5539;
+  color: #798777;
 }
 
 .post-title a:hover {
-  color: #9c6644;
+  color: #798777;
 }
 
 .post-excerpt {
   margin: 0;
-  color: #b08968;
+  color: #A2B29F;
   font-size: 0.95rem;
   line-height: 1.5;
 }
@@ -173,13 +173,13 @@ a:hover {
 .post-content h2 {
   font-size: 1.5rem;
   margin: 2em 0 1em;
-  color: #7f5539;
+  color: #798777;
 }
 
 .post-content h3 {
   font-size: 1.25rem;
   margin: 1.5em 0 0.75em;
-  color: #7f5539;
+  color: #798777;
 }
 
 .post-content p {
@@ -198,15 +198,15 @@ a:hover {
 .post-content blockquote {
   margin: 1.5em 0;
   padding: 0 0 0 1.5em;
-  border-left: 3px solid #e6ccb2;
-  color: #b08968;
+  border-left: 3px solid #BDD2B6;
+  color: #A2B29F;
   font-style: italic;
 }
 
 .post-content code {
   font-family: 'PT Mono', 'Consolas', monospace;
   font-size: 0.9em;
-  background: #ddb892;
+  background: #BDD2B6;
   padding: 2px 6px;
   border-radius: 3px;
 }
@@ -214,7 +214,7 @@ a:hover {
 .post-content pre {
   margin: 1.5em 0;
   padding: 1em 1.25em;
-  background: #ddb892;
+  background: #BDD2B6;
   border-radius: 4px;
   overflow-x: auto;
   font-size: 0.9rem;
@@ -238,13 +238,13 @@ a:hover {
 .post-footer {
   margin-top: 40px;
   padding-top: 20px;
-  border-top: 1px solid #e6ccb2;
+  border-top: 1px solid #BDD2B6;
   font-size: 0.9rem;
-  color: #b08968;
+  color: #A2B29F;
 }
 
 .post-tags a {
-  color: #b08968;
+  color: #A2B29F;
 }
 
 .post-navigation {
@@ -260,7 +260,7 @@ a:hover {
 .page-title {
   font-size: 2rem;
   margin: 0;
-  color: #7f5539;
+  color: #798777;
 }
 
 .page-content {
@@ -281,7 +281,7 @@ a:hover {
 .archive-date {
   font-family: 'PT Mono', monospace;
   font-size: 0.85rem;
-  color: #b08968;
+  color: #A2B29F;
   margin-right: 15px;
   display: inline-block;
   width: 90px;
@@ -303,7 +303,7 @@ a:hover {
 }
 
 .pagination a {
-  color: #9c6644;
+  color: #798777;
 }
 
 /* Responsive */
@@ -314,7 +314,7 @@ a:hover {
     height: auto;
     padding: 30px 20px;
     border-right: none;
-    border-bottom: 1px solid #e6ccb2;
+    border-bottom: 1px solid #BDD2B6;
   }
 
   .sidebar-content {
