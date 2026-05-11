@@ -148,6 +148,31 @@
     font-size: 16px;
     color: var(--ink-soft);
   }
+  .social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--rule-soft);
+    border-radius: 50%;
+    font-family: "Cormorant Garamond", "EB Garamond", serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--ink-soft);
+  }
+  .social-links a:hover {
+    border-color: var(--rule);
+    color: var(--ink);
+  }
   .colophon .copy {
     font-size: 14px;
     margin-top: 6px;
@@ -303,6 +328,10 @@
 
     <footer class="colophon">
       <div class="tag"></div>
+      <div class="social-links" aria-label="Social links">
+        <a href="https://x.com/thefalkon" aria-label="X" rel="me noopener noreferrer">X</a>
+        <a href="https://bsky.app/profile/thefalkon.bsky.social" aria-label="Bluesky" rel="me noopener noreferrer">B</a>
+      </div>
       <div class="copy">© 2026 Dan Falkenheim</div>
     </footer>
 
