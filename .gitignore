@@ -3,4 +3,6 @@
 Alderstone.html
 tweaks-panel.jsx
 uploads/
-RAPM/
+RAPM/build_rapm_table.py
+RAPM/rapm-table.html
+RAPM/Images/.DS_Store

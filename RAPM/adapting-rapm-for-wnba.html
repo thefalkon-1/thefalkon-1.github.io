@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Adapting RAPM for the WNBA — Dan Falkenheim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet" />
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['$$', '$$']],
+      processEscapes: true
+    },
+    chtml: { scale: 1.0 },
+    options: { renderActions: { addMenu: [] } }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
+  :root {
+    --paper: #faf6ec;
+    --ink: #1f1d18;
+    --ink-soft: #4a463d;
+    --ink-mute: #6b6557;
+    --rule: #1f1d18;
+    --rule-soft: #b8b1a1;
+    --accent: #2a2820;
+    --measure: 790px;
+    --measure-wide: 860px;
+    --header-pad: 2px;
+    --body-size: 19px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "EB Garamond", "Adobe Garamond Pro", Garamond, "Times New Roman", serif;
+    font-size: var(--body-size);
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern", "liga", "onum";
+  }
+  a { color: inherit; text-decoration: none; }
+
+  .page {
+    max-width: var(--measure-wide);
+    margin: 0 auto;
+    padding: 56px 48px 40px;
+  }
+
+  .masthead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: var(--header-pad);
+    border-bottom: 1px solid var(--rule);
+  }
+  .logo {
+    font-family: "Cormorant Garamond", "EB Garamond", serif;
+    font-weight: 500;
+    font-size: 30px;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .nav {
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+    font-size: 13px;
+    font-variant: small-caps;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+  }
+  .nav a { padding: 0 14px; position: relative; }
+  .nav a + a::before {
+    content: "·";
+    position: absolute;
+    left: -3px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink-mute);
+  }
+  .nav a:last-child { padding-right: 0; }
+  .nav a:first-child { padding-left: 0; }
+  .nav a:hover { color: var(--ink); }
+
+  .return {
+    text-align: center;
+    margin: 36px 0 44px;
+    font-size: 16px;
+  }
+  .return a {
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 1px;
+  }
+
+  .colophon {
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    padding-top: 22px;
+    color: var(--ink-soft);
+  }
+  .social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border: 1px solid var(--rule-soft);
+    border-radius: 50%;
+    color: var(--ink-soft);
+    transition: color 120ms ease, border-color 120ms ease;
+  }
+  .social-links a svg {
+    width: 12px;
+    height: 12px;
+    display: block;
+    fill: currentColor;
+  }
+  .social-links a:hover {
+    border-color: var(--rule);
+    color: var(--ink);
+  }
+  .colophon .copy {
+    font-size: 14px;
+    margin-top: 6px;
+    color: var(--ink-mute);
+  }
+
+  .article {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding-top: 34px;
+    position: relative;
+  }
+  .article .stamp {
+    font-variant: small-caps;
+    font-size: 12.5px;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  .article h1 {
+    font-family: "Cormorant Garamond", "EB Garamond", serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1.16;
+    letter-spacing: -0.005em;
+    margin: 0 0 18px;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .article h2 {
+    font-family: "Cormorant Garamond", "EB Garamond", serif;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1.2;
+    margin: 52px 0 14px;
+    color: var(--ink);
+    scroll-margin-top: 24px;
+  }
+  .article h2::after {
+    content: "";
+    display: block;
+    width: 40px;
+    border-top: 1px solid var(--ink);
+    margin-top: 8px;
+  }
+  .article h3 {
+    font-family: "EB Garamond", serif;
+    font-weight: 600;
+    font-size: 17px;
+    margin: 34px 0 12px;
+    color: var(--ink);
+    font-variant: small-caps;
+    letter-spacing: 0.1em;
+    scroll-margin-top: 24px;
+  }
+  .article h4 {
+    font-family: "EB Garamond", serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 18px;
+    margin: 28px 0 10px;
+    color: var(--ink);
+    scroll-margin-top: 24px;
+  }
+  .article .titlerule {
+    width: 56px;
+    height: 0;
+    border-top: 1.5px solid var(--ink);
+    margin: 4px 0 28px;
+  }
+  .article p {
+    margin: 0 0 18px;
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+  .article a.linkref {
+    border-bottom: 1px dotted var(--ink-mute);
+  }
+  .article a.linkref:hover {
+    border-bottom-color: var(--ink);
+  }
+
+  /* Table of Contents */
+  .toc {
+    margin: 30px 0 40px;
+    padding: 18px 24px 22px;
+    background: rgba(184, 177, 161, 0.13);
+    border-left: 2px solid var(--rule-soft);
+  }
+  .toc .toc-label {
+    font-variant: small-caps;
+    letter-spacing: 0.18em;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .toc ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: tocnum;
+    font-size: 16.5px;
+  }
+  .toc > ol > li {
+    counter-increment: tocnum;
+    margin: 6px 0;
+  }
+  .toc > ol > li > a::before {
+    content: counter(tocnum) ". ";
+    color: var(--ink-mute);
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    margin-right: 2px;
+  }
+  .toc ol ol {
+    counter-reset: subnum;
+    margin: 4px 0 6px 22px;
+    font-size: 15.5px;
+    color: var(--ink-soft);
+  }
+  .toc ol ol li {
+    counter-increment: subnum;
+    margin: 2px 0;
+  }
+  .toc ol ol li a::before {
+    content: counter(tocnum) "." counter(subnum) " ";
+    color: var(--ink-mute);
+    margin-right: 4px;
+  }
+  .toc ol ol ol {
+    counter-reset: subsubnum;
+    margin: 4px 0 6px 18px;
+    font-size: 14.5px;
+  }
+  .toc ol ol ol li {
+    counter-increment: subsubnum;
+    margin: 2px 0;
+  }
+  .toc ol ol ol li a::before {
+    content: counter(tocnum) "." counter(subnum) "." counter(subsubnum) " ";
+    color: var(--ink-mute);
+    margin-right: 4px;
+  }
+  .toc a {
+    color: var(--ink-soft);
+    transition: color 120ms ease;
+  }
+  .toc a:hover,
+  .toc a.active {
+    color: #000;
+  }
+  .toc a.active {
+    font-weight: 600;
+  }
+
+  /* Tables */
+  .article table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 26px;
+    font-size: 15.5px;
+    font-feature-settings: "tnum", "lnum";
+  }
+  .article .tabcap {
+    text-align: left;
+    font-variant: small-caps;
+    letter-spacing: 0.12em;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin: 22px 0 8px;
+    font-weight: 500;
+  }
+  .article th {
+    text-align: left;
+    font-weight: 500;
+    border-top: 1.25px solid var(--ink);
+    border-bottom: 1.25px solid var(--ink);
+    padding: 8px 10px;
+    background: transparent;
+    font-variant: small-caps;
+    letter-spacing: 0.04em;
+    font-size: 13.5px;
+  }
+  .article td {
+    border-bottom: 1px solid var(--rule-soft);
+    padding: 6px 10px;
+  }
+  .article tr:last-child td { border-bottom: 1.25px solid var(--ink); }
+  .article td.num, .article th.num { text-align: right; }
+
+  /* Footnote marker & sidenote */
+  sup.fn {
+    font-size: 0.72em;
+    vertical-align: super;
+    line-height: 0;
+    margin-left: 1px;
+  }
+  sup.fn a {
+    color: var(--ink);
+    border-bottom: none;
+  }
+  .sidenote {
+    display: block;
+    margin: 18px 0 24px;
+    padding: 12px 16px;
+    background: rgba(184, 177, 161, 0.13);
+    border-left: 2px solid var(--rule-soft);
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    text-align: left;
+    hyphens: none;
+    -webkit-hyphens: none;
+  }
+  .sidenote .sidenote-num {
+    font-weight: 600;
+    margin-right: 4px;
+    color: var(--ink);
+  }
+  .sidenote a.linkref {
+    border-bottom: 1px dotted var(--ink-mute);
+  }
+
+  /* Figures */
+  .article figure {
+    margin: 30px 0 32px;
+  }
+  .article figure figcaption {
+    text-align: left;
+    font-variant: small-caps;
+    letter-spacing: 0.12em;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin: 0 0 10px;
+    font-weight: 500;
+  }
+  .article figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Signoff */
+  .signoff {
+    margin: 24px 0 32px;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  /* Section divider */
+  .article .section-divider {
+    width: 90px;
+    border: none;
+    border-top: 1px solid var(--rule-soft);
+    margin: 48px auto;
+  }
+
+  /* Iframe wrappers (datawrapper) */
+  .iframe-wrap { margin: 14px 0 28px; }
+  .iframe-wrap iframe { width: 100%; border: none; min-width: 100%; }
+  .iframe-label {
+    font-variant: small-caps;
+    font-size: 12.5px;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+    margin: 22px 0 8px;
+  }
+
+  /* Math */
+  mjx-container[display="true"] {
+    margin: 6px 0 22px !important;
+    text-align: center;
+  }
+
+  /* responsive */
+  @media (max-width: 640px) {
+    .page { padding: 36px 22px 28px; }
+    .logo { font-size: 26px; }
+    .nav { font-size: 11.5px; letter-spacing: 0.12em; }
+    .nav a { padding: 0 8px; }
+    .article h1 { font-size: 30px; }
+    .article h2 { font-size: 24px; }
+    .article table { font-size: 13.5px; }
+    .article th, .article td { padding: 5px 6px; }
+  }
+
+  @media (min-width: 1300px) {
+    .toc {
+      position: fixed;
+      top: 88px;
+      right: calc(50% + 430px + 28px);
+      width: 184px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 4px 16px 4px 4px;
+      background: transparent;
+      border-left: none;
+      border-right: 1px solid var(--rule-soft);
+    }
+    .toc .toc-label {
+      margin-bottom: 14px;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+    }
+    .toc ol {
+      font-size: 13.5px;
+      line-height: 1.42;
+    }
+    .toc ol ol {
+      margin: 4px 0 6px 12px;
+      font-size: 12.5px;
+    }
+    .toc ol ol ol {
+      margin: 2px 0 4px 10px;
+      font-size: 12px;
+    }
+    .toc > ol > li { margin: 7px 0; }
+    .toc ol ol li { margin: 2px 0; }
+    .toc ol ol ol li { margin: 1px 0; }
+    .toc a { color: var(--ink-mute); }
+    .toc a:hover,
+    .toc a.active { color: var(--ink); }
+    .toc a.active { font-weight: 600; }
+
+    .note-row {
+      position: relative;
+    }
+    .note-row > .sidenote {
+      position: absolute;
+      top: 0;
+      left: calc(100% + 28px);
+      width: 184px;
+      margin: 0;
+      padding: 0 0 0 16px;
+      background: transparent;
+      border-left: 1px solid var(--rule-soft);
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+    .note-row > .sidenote .sidenote-num {
+      font-weight: 600;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header class="masthead">
+    <div class="logo"><a href="../index.html">Dan Falkenheim</a></div>
+    <nav class="nav" aria-label="Primary">
+      <a href="../index.html">Writing</a>
+      <a href="../index.html#/about">About</a>
+    </nav>
+  </header>
+
+  <article class="article">
+    <div class="stamp">May 12, 2026</div>
+    <h1>Adapting RAPM for the WNBA</h1>
+    <div class="titlerule" aria-hidden="true"></div>
+
+    <p>Earlier this week, I published a high-level overview on <a class="linkref" href="http://SI.com">SI.com</a> detailing my research into adapting Regularized Adjusted Plus-Minus (RAPM) for the WNBA. This writeup serves as its technical companion. My goal is to contribute a rigorously validated WNBA RAPM framework, building on prior public WNBA plus-minus work and on Sill's validation standard. While his application of ridge regression remains the most enduring element of his work, Sill grounded his paper in a rigorous validation process that turned a metric (APM) from something that looked useful into something that can be tested. This project applies that same strict validation standard to the implementation details needed to modify RAPM for the WNBA. (Credit also goes to Jeremias Engelmann, whose <a class="linkref" href="https://jeremiasengelmann.substack.com/p/nba-adjusted-plus-minus-how-to-build">guides</a> inspired this work.)</p>
+
+    <p>The following sections lay out the exact methodology used to build and validate this model.</p>
+
+    <nav class="toc" aria-label="Contents">
+      <div class="toc-label">Contents</div>
+      <ol>
+        <li><a href="#methodology">Methodology</a>
+          <ol>
+            <li><a href="#design-matrix">Constructing the Design Matrix</a></li>
+            <li><a href="#apm-rapm">APM and RAPM Formulation</a></li>
+            <li><a href="#implementation">Model Implementation Choices</a></li>
+          </ol>
+        </li>
+        <li><a href="#evaluation">Evaluation</a>
+          <ol>
+            <li><a href="#splits">Chronological Splits</a></li>
+            <li><a href="#cv">Five-Fold Cross-Validation and Hyperparameter Tuning</a></li>
+          </ol>
+        </li>
+        <li><a href="#results">Results</a>
+          <ol>
+            <li><a href="#predictive">Predictive Performance Across Time Windows</a></li>
+            <li><a href="#spec-choices">RAPM Specification Choices</a>
+              <ol>
+                <li><a href="#structural">Structural Specification Choices</a></li>
+                <li><a href="#regularization">Regularization and Minutes-Cutoff Selection</a></li>
+              </ol>
+            </li>
+            <li><a href="#stability">Year-to-Year Stability of Player Ratings</a></li>
+            <li><a href="#ratings">Player Ratings</a></li>
+          </ol>
+        </li>
+        <li><a href="#parting">Parting Thoughts</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="methodology">Methodology</h2>
+
+    <h3 id="design-matrix">Constructing the Design Matrix</h3>
+
+    <div class="note-row">
+      <p>Following <a class="linkref" href="https://www.82games.com/comm30.htm">Rosenbaum (2004)</a> and <a class="linkref" href="https://www.sloansportsconference.com/research-papers/improved-nba-adjusted-using-regularization-and-out-of-sample-testing">Sill (2010)</a>, player impact is modeled with lineup-based observations<sup class="fn"><a href="#sidenote-1">1</a></sup>. In the possession design, each row corresponds to a single possession. In the stint design, consecutive possessions are collapsed and aggregated whenever the same ten players remain on the floor within the same quarter.</p>
+
+      <aside class="sidenote" id="sidenote-1">
+        <span class="sidenote-num">1.</span> WNBA regular-season play-by-play, box score and schedule data are collected from the stats.nba.com and data.nba.com endpoints through the <a class="linkref" href="https://pbpstats.readthedocs.io/en/latest/">pbpstats</a> parser. The raw collection spans every available WNBA season from 1997 through 2025 and contains 6,166 games.
+      </aside>
+    </div>
+
+    <p>Both designs share the following mathematical notation. Let \(s\) denote the number of design rows and \(n\) denote the number of modeled players. For each row \(r\), let \(p_r\) be the number of possessions represented by that row and let \(m_r\) be the home team's scoring margin for that row. (In the possession design matrix, \(p_r\) always equals one.) The response variable is defined as \(y_r = 100 \times \frac{m_r}{p_r}\); this scaling transforms the response variable to points per 100 possessions.</p>
+
+    <p>The design matrix adopts the signed-player encoding as detailed by <a class="linkref" href="https://www.82games.com/comm30.htm">Rosenbaum</a> and <a class="linkref" href="https://www.sloansportsconference.com/research-papers/improved-nba-adjusted-using-regularization-and-out-of-sample-testing">Sill</a>. For modeled player <em>j</em>, <em>x<sub>rj</sub></em> equals +1 if player <em>j</em> is on the floor for the home team in row <em>r</em>, &minus;1 if player <em>j</em> is on the floor for the away team in row <em>r</em>, or 0 if player <em>j</em> is not on the floor in row <em>r</em>. An intercept column of ones is included to model home-court advantage. This process creates an \(X \in \mathbb{R}^{s \times (n+1)}\) design matrix containing one intercept and one signed indicator column for each modeled player.</p>
+
+    <div class="tabcap">Table 1. Example Design Matrix</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Stint</th>
+          <th>Intercept</th>
+          <th>Player 1</th>
+          <th>Player 2</th>
+          <th>Player 3</th>
+          <th>···</th>
+          <th>Player N&minus;2</th>
+          <th>Player N&minus;1</th>
+          <th>Player N</th>
+          <th class="num">Margin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>+1</td><td>+1</td><td>+1</td><td>+1</td><td>···</td><td>&minus;1</td><td>&minus;1</td><td>&minus;1</td><td class="num">+6.0</td></tr>
+        <tr><td>2</td><td>+1</td><td>0</td><td>0</td><td>+1</td><td>···</td><td>&minus;1</td><td>0</td><td>0</td><td class="num">+4.0</td></tr>
+        <tr><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td class="num">⋮</td></tr>
+        <tr><td>s</td><td>+1</td><td>0</td><td>+1</td><td>0</td><td>···</td><td>0</td><td>&minus;1</td><td>0</td><td class="num">&minus;3.0</td></tr>
+      </tbody>
+    </table>
+
+    <h3 id="apm-rapm">APM and RAPM Formulation</h3>
+
+    <p><strong><em>Adjusted plus-minus (APM):</em></strong> The baseline model is APM as described by Rosenbaum, which is fit using weighted least-squares regression. Each stint without substitutions (i.e., each row in the design matrix) is weighted by the number of possessions it contains, so longer stints contribute proportionally more information to the fit. (As detailed above, the weighting equals one for possession-based design matrices.) The APM estimator then solves:</p>
+
+    $$\hat{\beta}_{APM} = \arg \min_{\beta \in \mathbb{R}^{n+1}} \sum_{r=1}^{s} p_r (y_r - x_r^T \beta)^2$$
+
+    <p>Here, \(\beta\) contains the home-court intercept and the player coefficients. Each player coefficient measures that player's estimated contribution to home-team point differential, conditional on the other players on the floor.</p>
+
+    <p><strong>Regularized adjusted plus-minus (RAPM):</strong> As formulated by Sill (2010), RAPM adds an \(L_2\) penalty to shrink player coefficients toward zero and reduce overfitting:</p>
+
+    $$\hat{\beta}_{RAPM} = \arg \min_{\beta \in \mathbb{R}^{n+1}} \left\{ \sum_{r=1}^{s} p_r \left( y_r - x_r^\top \beta \right)^2 + \lambda \sum_{j=1}^{n} \beta_j^2 \right\}$$
+
+    <p>The ridge penalty is applied to player effects but not to the intercept.</p>
+
+    <h3 id="implementation">Model Implementation Choices</h3>
+
+    <p>"Another challenge regarding APM surrounds various implementation details where choices have to be made," Sill wrote. "Apparently somewhat arbitrarily." Rather than leaving those choices implicit, this work, in line with Sill, treats the implementation details as parameters to be selected by validation. Those implementation details are as follows:</p>
+
+    <p><strong><em>Stint-based vs. possession-based design matrices.</em></strong> The stint-based row construction follows Rosenbaum and Sill, where each row in the design matrix represents a period where the exact same 10 players share the court. The possession-based row construction increases the number of rows in the design matrix by codifying each observation as a single possession, rather than a series of possessions. In both cases, the response remains the home-team scoring margin per 100 possessions.</p>
+
+    <p><strong><em>Dropped vs. pooled reference players.</em></strong> In the dropped specification, players who fall below a minimum playing time threshold are dropped from the design matrix altogether. This is the specification used by both Rosenbaum and Sill. In the pooled specification, all players who fall below a minimum playing time threshold share a single pooled coefficient. In effect, the dropped specification omits separate indicator columns for players below the minutes threshold, whereas the pooled specification replaces those omitted columns with a single shared indicator column that records the net number of players below the threshold on the home and away teams for each row.</p>
+
+    <p>The minimum playing time threshold is determined from the training data as a percentile of player minutes. The specific percentile used (0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, or 0.35) is also treated as a model parameter.</p>
+
+    <p><strong><em>Single season vs. multiple seasons.</em></strong> Models fit on a single season of data are compared with models fit on multi-season windows. The estimation windows considered are one, three, and five seasons.</p>
+
+    <p><strong><em>Regularization strength.</em></strong> For RAPM, the ridge penalty parameter \(\lambda\) controls the amount of shrinkage applied to player coefficients. Larger values of \(\lambda\) shrink coefficients more aggressively toward zero and may produce more stable estimates. \(\lambda\) values of 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, and 8000 were tried.</p>
+
+    <p>For each individual season or multi-year estimation window, 544 unique model configurations were tested. Across all single-season, three-season, and five-season evaluations, this produced 44,064 total model fits.</p>
+
+    <hr class="section-divider" />
+
+    <h2 id="evaluation">Evaluation</h2>
+
+    <p>Although the models are fit on possession- or stint-level rows, predictive performance is evaluated at the game level. Row-level predictions are aggregated within each game to obtain a predicted final home-team scoring margin, which is then compared with the actual final margin.</p>
+
+    <h3 id="splits">Chronological Splits</h3>
+
+    <p>All train-test splits preserve chronology. Following the general approach laid out by Sill, games within each evaluation season are ordered by date, with the first 70% used for training and validation and the final 30% reserved as a held-out test set. (The evaluation season is the season for which predictive performance is measured.)</p>
+
+    <p>In the single-season setting, this split is applied separately to each season from 1997 through 2025. In the multi-season setting, the same split is applied within rolling three-season and five-season windows. Earlier seasons in the window are included in the training and validation pool in full, while the final season in the window serves as the evaluation season and is split chronologically into a training and validation segment with the first 70% of the data and a testing segment with the last 30% of the data.</p>
+
+    <h3 id="cv">Five-Fold Cross-Validation and Hyperparameter Tuning</h3>
+
+    <p>Within each training and validation block, model selection is performed using pooled five-fold cross-validation. The available games are divided into five folds at the game level. For each fold, the model is fit on the other four folds and then used to predict the held-out fold. The held-out predictions from all five folds are then combined into one pooled validation set, on which overall validation RMSE and validation \(R^2\) are computed. Both choices (five folds and pooled validation) are WNBA-specific adaptations: because the WNBA provides a smaller game sample than the NBA, five-fold cross-validation leaves more data in each training fold and pooling out-of-fold predictions provides a more stable validation estimate less sensitive to outlier seasons.</p>
+
+    <p>Hyperparameters are selected primarily by minimizing median validation RMSE, with median validation \(R^2\) used as a secondary criterion when competing specifications that perform similarly. Similar to the note above, the median is used because it is less sensitive than the mean to unusually noisy seasons and may provide a more stable summary of typical out-of-sample performance.</p>
+
+    <p>The tuned hyperparameters are the row construction (stint or possession), the reference-player treatment (drop or pool), the minutes-cutoff percentile (0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, and 0.35), and, for RAPM, the ridge penalty parameter \(\lambda\) (500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000).</p>
+
+    <p>After validation, performance is computed for all candidate specifications within a season or rolling window, the selected model is refit on the full training-and-validation block and then evaluated once on the held-out test set.</p>
+
+    <figure>
+      <figcaption>Figure 1. Evaluation strategy: chronological train, validation, and test splits.</figcaption>
+      <img src="Images/evaluation_strategy_trans.png" alt="Evaluation strategy diagram showing chronological train/validation/test splits." />
+    </figure>
+
+    <h2 id="results">Results</h2>
+
+    <h3 id="predictive">Predictive Performance Across Time Windows</h3>
+
+    <p>When holding time window, row construction, reference-player handling, and minutes cutoff fixed, RAPM produced lower median test RMSE than the same APM specification in 100% of comparisons. RAPM also reduced median test RMSE by 2.78, 1.27, and 0.88 points in the one-year, three-year, and five-year settings, respectively. These results coincide with Sill's finding that ridge regularization improves out-of-sample game margin prediction and show that RAPM outperforms APM in the WNBA setting. With that being the case, the remainder of the results focus on differences among RAPM specifications.</p>
+
+    <p>For each window, the selected RAPM specification detailed in Table 2 is the configuration with the lowest median validation RMSE, using validation \(R^2\) as a secondary criterion. As shown below, the three-year specification performed best overall.</p>
+
+    <div class="tabcap">Table 2. Validation-selected RAPM specifications over the shared 2001–2025 comparison period.</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Horizon</th>
+          <th>Design</th>
+          <th>Reference</th>
+          <th class="num">Minutes cutoff</th>
+          <th class="num">Lambda</th>
+          <th class="num">Val RMSE</th>
+          <th class="num">Val \(R^2\)</th>
+          <th class="num">Test RMSE</th>
+          <th class="num">Test \(R^2\)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>1-year</strong></td><td>possession</td><td>drop</td><td class="num">0.20</td><td class="num">3500</td><td class="num">11.7</td><td class="num">0.142</td><td class="num">11.62</td><td class="num">0.164</td></tr>
+        <tr><td><strong>3-year</strong></td><td>possession</td><td>pool</td><td class="num">0.30</td><td class="num">3500</td><td class="num">11.5</td><td class="num">0.159</td><td class="num">11.32</td><td class="num">0.195</td></tr>
+        <tr><td><strong>5-year</strong></td><td>possession</td><td>pool</td><td class="num">0.35</td><td class="num">6500</td><td class="num">11.7</td><td class="num">0.145</td><td class="num">11.52</td><td class="num">0.167</td></tr>
+      </tbody>
+    </table>
+
+    <p>Following Sill (2010), the main baseline is a constant-margin predictor. For the final test set, it uses the mean home-team margin from the full training-and-validation block. The corresponding constant-margin baseline median test RMSEs were 13.19, 13.19, and 13.21 for the one-year, three-year, and five-year settings, respectively.</p>
+
+    <h3 id="spec-choices">RAPM Specification Choices</h3>
+
+    <p>The following analysis focuses on which RAPM specifications performed best, which centers on two sets of choices. First, the choices for structural specifications (possession vs. stint rows, dropped vs. pooled treatment of low-minute players) determine how the design matrix is built. Second, the choices for tuning parameters determine the amount of ridge shrinkage and the minimum playing-time threshold used to decide which players are estimated individually.</p>
+
+    <h4 id="structural">Structural Specification Choices</h4>
+
+    <p>Figure 2 compares the main structural RAPM specifications after parameter selection. For each time window and structural choice, the lambda-minutes-cutoff pair is selected jointly by median validation RMSE. The figure is intended to show which structural specification performs best after each specification is allowed to use its own best lambda and minutes-cutoff pair. The black rings mark the structural choice with the lowest median validation RMSE within each time window.</p>
+
+    <figure>
+      <figcaption>Figure 2. Structural RAPM specification choices across time windows.</figcaption>
+      <img src="Images/core_02a_rapm_structural_choices_shared_2001_2025.png" alt="Structural RAPM specification comparison across time windows, with black rings marking the best structural choice per window." />
+    </figure>
+
+    <p>While possession-based rows were selected in all three horizons, the validation and test RMSE values are close across possession- and stint-based specifications across several time windows. Therefore, this result shouldn't rule out stint-based design, as used by Rosenbaum (2004) and Sill (2010).</p>
+
+    <p>The shift from dropped to pooled low-minute players, though, is consistent with the role of multi-season pooling. In the one-year model, dropped and pooled specifications perform similarly once lambda and the minutes cutoff are selected. In the three- and five-year models, however, pooled specifications outperform dropped specifications. This suggests that once multiple seasons are combined, it becomes more valuable to retain the lineup information contributed by low-minute players through a shared pooled coefficient rather than omitting those players from the design matrix entirely.</p>
+
+    <h4 id="regularization">Regularization and Minutes-Cutoff Selection</h4>
+
+    <p>Figure 3 examines the two main tuning parameters for the possession-based RAPM models: the ridge penalty parameter \(\lambda\) and the minutes cutoff percentile. Each cell reports the increase in median validation RMSE relative to the best possession-based RAPM model within the same horizon. (A value of 0.00 is equivalent to the best observed validation RMSE for that horizon, while larger values indicate worse validation performance.)</p>
+
+    <figure>
+      <figcaption>Figure 3. Validation RMSE penalty across lambda and minutes-cutoff percentile for possession-based RAPM.</figcaption>
+      <img src="Images/core_02b_possession_rapm_parameter_heatmaps_shared_2001_2025.png" alt="Heatmaps of validation RMSE penalty over lambda and minutes-cutoff percentile for possession-based RAPM models." />
+    </figure>
+
+    <p>The clearest pattern is that small lambda values, such as 500 and 1000, perform poorly. Across time windows and reference-player treatments, the left side of the heatmap is consistently associated with higher validation RMSE, indicating that weak regularization leaves the model more sensitive to noisy player-lineup combinations. As \(\lambda\) increases into roughly the 2500–6500 range, validation performance improves. Beyond that point, the heatmap becomes relatively flat, which suggests that a broad range of moderate-to-large penalty values may support near-best performance. In other words, the heatmap does not suggest that performance depends on one isolated tuning cell.</p>
+
+    <p>The selected minutes cutoff percentiles were 0.20, 0.30, and 0.35 for the one-year, three-year, and five-year possession RAPM models, respectively. (For reference, a 30th percentile minutes cutoff corresponds to a player who plays about 270 minutes in a training set, or about 11 minutes per training game.) These selected values imply that a playing-time threshold helps reduce noise from including players who do not often appear in lineups.</p>
+
+    <h3 id="stability">Year-to-Year Stability of Player Ratings</h3>
+
+    <p>Year-to-year stability in the resulting player rankings (the sorted coefficient values) provides an additional check of whether the estimated coefficients capture player signal rather than season-specific noise. To assess this, adjacent-season Spearman rank correlations were computed for one-year player coefficients among players who were estimated individually in both seasons and were not assigned to the pooled reference group. Spearman correlation is appropriate here because the goal is to evaluate the stability of the ranking itself rather than the stability of the exact coefficient magnitudes.</p>
+
+    <figure>
+      <figcaption>Figure 4. Adjacent-season Spearman rank correlation for one-year RAPM ratings.</figcaption>
+      <img src="Images/core_04_single_year_rapm_stability_tradeoff.png" alt="Adjacent-season Spearman rank correlations for one-year RAPM specifications, illustrating the stability-vs-accuracy tradeoff." />
+    </figure>
+
+    <p>For the selected one-year RAPM specification, the median adjacent-season Spearman correlation was approximately 0.34. This indicates weak-to-modest correlation in the resulting player rankings from one season to the next. In other words, the one-year RAPM estimates contain some meaningful year-to-year signal, but the rankings remain sensitive to noise, role changes, injuries, roster turnover, and the limited sample size of a single WNBA season.</p>
+
+    <h3 id="ratings">Player Ratings</h3>
+
+    <p>For reference, the player ratings from the best one- and three-year RAPM models are included below.</p>
+
+    <div class="iframe-label">One-Year RAPM (2025)</div>
+
+    <div class="iframe-wrap">
+      <iframe title="WNBA One-Year RAPM (2025)" aria-label="Table" id="datawrapper-chart-SBkpN" src="https://datawrapper.dwcdn.net/SBkpN/2/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="852" data-external="1"></iframe>
+    </div>
+
+    <div class="iframe-label">Three-Year RAPM (2023 to 2025)</div>
+
+    <div class="iframe-wrap">
+      <iframe title="WNBA Three-Year RAPM (2023 to 2025)" aria-label="Table" id="datawrapper-chart-dBmWS" src="https://datawrapper.dwcdn.net/dBmWS/2/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="785" data-external="1"></iframe>
+    </div>
+
+    <script type="text/javascript">
+      window.addEventListener("message", function (a) {
+        if (void 0 !== a.data["datawrapper-height"]) {
+          var e = document.querySelectorAll("iframe");
+          for (var t in a.data["datawrapper-height"])
+            for (var r, i = 0; (r = e[i]); i++)
+              if (r.contentWindow === a.source) {
+                var d = a.data["datawrapper-height"][t] + "px";
+                r.style.height = d;
+              }
+        }
+      });
+    </script>
+
+    <hr class="section-divider" />
+
+    <h2 id="parting">Parting Thoughts</h2>
+
+    <p>RAPM remains constrained by the structure of basketball rotations. When players share most of their minutes with the same teammates or appear in the same substitution patterns, the model struggles to separate one player's effect from another's. That collinearity limits the interpretability of the player coefficients, but it is not the only limitation. The best performing one-year specification compares well to NBA benchmarks, yet its modest test \(R^2\) of 0.164 and median Spearman correlation of 0.34 show that RAPM leaves substantial signal on the table. In addition, game-level margin prediction (unadjusted for opponent strength or shooting luck) is only a proxy for player impact, and may not be the best target for this modeling setup.</p>
+
+    <p>For these reasons, the RAPM coefficients should be read as lineup-adjusted estimates and not definitive measures of player value. The standard errors and confidence intervals reinforce that caution. Still, RAPM may identify players whose teams consistently won their minutes in ways that are not fully captured by the box score.</p>
+
+    <p>This version of RAPM is a starting point. Better WNBA impact metrics will likely combine lineup data with priors, box score production, offensive and defensive splits, and other techniques. (Max Carlin's wRAPM at <a class="linkref" href="https://helpthehelper.vercel.app/players">Help the Helper</a> separates offensive and defensive splits and uses priors. NBA BPM and RAPM metrics are legion. See: <a class="linkref" href="https://dunksandthrees.com/">EPM</a> by Dunks and Threes, <a class="linkref" href="https://xrapm.com/short_desc/xRAPM_explainer.html">xRAPM</a> by Engelmann, <a class="linkref" href="https://apanalytics.shinyapps.io/DARKO/">DARKO</a> by Kostya Medvedovsky, to name a few.) The next step is to adapt those ideas to the WNBA more fully. I hope to have more on that front soon.</p>
+
+    <p class="signoff">— Dan</p>
+
+    <div class="return">
+      <a href="../index.html">Return to index&nbsp;↑</a>
+    </div>
+  </article>
+
+  <footer class="colophon">
+    <div class="social-links" aria-label="Social links">
+      <a href="https://x.com/thefalkon" aria-label="X" rel="me noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://bsky.app/profile/thefalkon.bsky.social" aria-label="Bluesky" rel="me noopener noreferrer">
+        <svg viewBox="0 0 64 57" aria-hidden="true" focusable="false"><path d="M13.873 3.805C21.21 9.332 29.103 20.537 32 26.55v15.882c0-.338-.13.044-.41.867-1.512 4.456-7.418 21.847-20.923 7.944-7.111-7.32-3.819-14.64 9.125-16.85-7.405 1.264-15.73-.825-18.014-9.015C1.12 23.022 0 8.51 0 6.55 0-3.268 8.579-.182 13.873 3.805ZM50.127 3.805C42.79 9.332 34.897 20.537 32 26.55v15.882c0-.338.13.044.41.867 1.512 4.456 7.418 21.847 20.923 7.944 7.111-7.32 3.819-14.64-9.125-16.85 7.405 1.264 15.73-.825 18.014-9.015C62.88 23.022 64 8.51 64 6.55c0-9.818-8.578-6.732-13.873-2.745Z"/></svg>
+      </a>
+    </div>
+    <div class="copy">© 2026 Dan Falkenheim</div>
+  </footer>
+
+</main>
+<script>
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll(".toc a[href^='#']"));
+    var sections = links
+      .map(function (link) {
+        return document.getElementById(link.getAttribute("href").slice(1));
+      })
+      .filter(Boolean);
+
+    function setActive(id) {
+      links.forEach(function (link) {
+        link.classList.toggle("active", link.getAttribute("href") === "#" + id);
+      });
+    }
+
+    var clickLockUntil = 0;
+    links.forEach(function (link) {
+      link.addEventListener("click", function () {
+        var id = link.getAttribute("href").slice(1);
+        setActive(id);
+        clickLockUntil = Date.now() + 700;
+      });
+    });
+
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        if (Date.now() < clickLockUntil) return;
+        var visible = entries
+          .filter(function (entry) { return entry.isIntersecting; })
+          .sort(function (a, b) { return a.boundingClientRect.top - b.boundingClientRect.top; });
+        if (visible[0]) setActive(visible[0].target.id);
+      }, {
+        rootMargin: "-18% 0px -68% 0px",
+        threshold: 0
+      });
+      sections.forEach(function (section) { observer.observe(section); });
+    } else if (sections[0]) {
+      setActive(sections[0].id);
+    }
+  })();
+</script>
+</body>
+</html>
