@@ -159,15 +159,18 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     border: 1px solid var(--rule-soft);
     border-radius: 50%;
-    font-family: "Cormorant Garamond", "EB Garamond", serif;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1;
     color: var(--ink-soft);
+    transition: color 120ms ease, border-color 120ms ease;
+  }
+  .social-links a svg {
+    width: 12px;
+    height: 12px;
+    display: block;
+    fill: currentColor;
   }
   .social-links a:hover {
     border-color: var(--rule);
@@ -281,10 +284,8 @@
     <header class="masthead">
       <div class="logo"><a href="#/" data-nav="index">Dan Falkenheim</a></div>
       <nav class="nav" aria-label="Primary">
-        <a href="#/" data-nav="index">Index</a>
-        <a href="#/writing" data-nav="writing">Writing</a>
+        <a href="#/" data-nav="writing">Writing</a>
         <a href="#/about" data-nav="about">About</a>
-        <a href="#/rss" data-nav="rss">RSS</a>
       </nav>
     </header>
 
@@ -292,9 +293,9 @@
     <section class="view view-index" id="view-index">
       <ul class="post-list">
         <li>
-          <span class="date">May 4, 2026</span>
+          <span class="date">May 14, 2026</span>
           <span class="row">
-            <a class="title" href="#/post/test-article">A Test Article</a>
+            <a class="title" href="RAPM/adapting-rapm-for-wnba.html">Adapting RAPM for the WNBA</a>
             <span class="leader" aria-hidden="true"></span>
           </span>
         </li>
@@ -305,20 +306,13 @@
       </div>
     </section>
 
-    <!-- ============ ARTICLE VIEW ============ -->
-    <section class="view view-article" id="view-article">
+    <!-- ============ ABOUT VIEW ============ -->
+    <section class="view view-about" id="view-about">
       <article class="article">
-        <div class="stamp">May 4, 2026</div>
-        <h1>A Test Article</h1>
+        <h1>About</h1>
         <div class="titlerule" aria-hidden="true"></div>
 
-        <p>Work in progress<sup class="fn"><a href="#fn-1">1</a></sup></p>
-
-        <section class="footnotes" aria-label="Footnotes">
-          <ol>
-            <li id="fn-1">Placeholder footnote one.</li>
-          </ol>
-        </section>
+        <p>I'm in Georgia Tech's online Master of Science in Analytics program, and my primary passion is women's hoops. In college, I had the good fortune of covering Montclair State's women's basketball team as they advanced to the 2016 NCAA Division III Final Four. The itch never left. I write about the WNBA for Sports Illustrated, where I'm a fact checker.</p>
 
         <div class="return">
           <a href="#/" data-nav="index">Return to index&nbsp;↑</a>
@@ -329,8 +323,12 @@
     <footer class="colophon">
       <div class="tag"></div>
       <div class="social-links" aria-label="Social links">
-        <a href="https://x.com/thefalkon" aria-label="X" rel="me noopener noreferrer">X</a>
-        <a href="https://bsky.app/profile/thefalkon.bsky.social" aria-label="Bluesky" rel="me noopener noreferrer">B</a>
+        <a href="https://x.com/thefalkon" aria-label="X" rel="me noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://bsky.app/profile/thefalkon.bsky.social" aria-label="Bluesky" rel="me noopener noreferrer">
+          <svg viewBox="0 0 64 57" aria-hidden="true" focusable="false"><path d="M13.873 3.805C21.21 9.332 29.103 20.537 32 26.55v15.882c0-.338-.13.044-.41.867-1.512 4.456-7.418 21.847-20.923 7.944-7.111-7.32-3.819-14.64 9.125-16.85-7.405 1.264-15.73-.825-18.014-9.015C1.12 23.022 0 8.51 0 6.55 0-3.268 8.579-.182 13.873 3.805ZM50.127 3.805C42.79 9.332 34.897 20.537 32 26.55v15.882c0-.338.13.044.41.867 1.512 4.456 7.418 21.847 20.923 7.944 7.111-7.32 3.819-14.64-9.125-16.85 7.405 1.264 15.73-.825 18.014-9.015C62.88 23.022 64 8.51 64 6.55c0-9.818-8.578-6.732-13.873-2.745Z"/></svg>
+        </a>
       </div>
       <div class="copy">© 2026 Dan Falkenheim</div>
     </footer>
@@ -340,9 +338,9 @@
 <script>
   function route() {
     var hash = location.hash || "#/";
-    var isPost = /^#\/post\//.test(hash);
-    document.getElementById("view-index").classList.toggle("active", !isPost);
-    document.getElementById("view-article").classList.toggle("active", isPost);
+    var isAbout = hash === "#/about";
+    document.getElementById("view-index").classList.toggle("active", !isAbout);
+    document.getElementById("view-about").classList.toggle("active", isAbout);
     window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
   }
   window.addEventListener("hashchange", route);
