@@ -100,7 +100,8 @@
     grid-template-columns: 130px 1fr;
     align-items: baseline;
     column-gap: 18px;
-    padding: 8px 0;
+    row-gap: 1px;
+    padding: 8px 0 10px;
   }
   .post-list .date {
     font-variant: small-caps;
@@ -119,6 +120,14 @@
     color: var(--ink);
   }
   .post-list .title:hover { color: #000; }
+  .post-list .technical-approach {
+    grid-column: 2;
+    font-size: 15px;
+    line-height: 1.35;
+    font-style: normal;
+    color: var(--ink);
+    opacity: 0.5;
+  }
   .post-list .leader {
     flex: 1;
     border-bottom: 1px dotted transparent;
@@ -298,6 +307,7 @@
             <a class="title" href="https://www.si.com/wnba/most-clutch-players-in-wnba-this-season" rel="noopener noreferrer">The Most Clutch Players in the WNBA This Season (SI.com)</a>
             <span class="leader" aria-hidden="true"></span>
           </span>
+          <span class="technical-approach">Technical approach: Semi-Markov win probability model</span>
         </li>
         <li>
           <span class="date">June 17, 2026</span>
@@ -305,6 +315,7 @@
             <a class="title" href="https://www.si.com/wnba/breaking-down-wnbas-best-half-court-transition-teams" rel="noopener noreferrer">Breaking Down the WNBA’s Best Half-Court and Transition Teams (SI.com)</a>
             <span class="leader" aria-hidden="true"></span>
           </span>
+          <span class="technical-approach">Technical approach: Rules-based classifier for inferring play context from tabular play-by-play data</span>
         </li>
         <li>
           <span class="date">May 14, 2026</span>
@@ -312,6 +323,7 @@
             <a class="title" href="RAPM/adapting-rapm-for-wnba.html">Adapting RAPM for the WNBA</a>
             <span class="leader" aria-hidden="true"></span>
           </span>
+          <span class="technical-approach">Technical approach: Ridge regression applied to lineup and score margin data</span>
         </li>
         <li>
           <span class="date">January 26, 2026</span>
@@ -319,6 +331,7 @@
             <a class="title" href="https://www.si.com/ranking-top-unrivaled-lineups-2026-season-bueckers-brink-martin" rel="noopener noreferrer">Ranking the Top Lineups in Unrivaled for the 2026 Season (SI.com)</a>
             <span class="leader" aria-hidden="true"></span>
           </span>
+          <span class="technical-approach">Technical approach: Automated play-by-play data extraction</span>
         </li>
         <li>
           <span class="date">January 11, 2026</span>
@@ -326,6 +339,7 @@
             <a class="title" href="https://github.com/thefalkon-1/Shrine-Bowl-x-Sumer-Sports-Analytics-Competition" rel="noopener noreferrer">OL-DL Drill Evaluation from Tracking Data (GitHub Competition Repo)</a>
             <span class="leader" aria-hidden="true"></span>
           </span>
+          <span class="technical-approach">Technical approach: Rules-based rep detection and tracking-derived evaluation metrics</span>
         </li>
       </ul>
 
