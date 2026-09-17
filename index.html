@@ -18,6 +18,7 @@
     --accent: #2a2820;
     --measure: 790px;
     --measure-wide: 860px;
+    --measure-frame: 1092px;
     --header-pad: 2px;
     --body-size: 19px;
   }
@@ -43,7 +44,7 @@
 
   /* ---------- shell ---------- */
   .page {
-    max-width: var(--measure-wide);
+    max-width: var(--measure-frame);
     margin: 0 auto;
     padding: 56px 48px 40px;
   }
@@ -132,6 +133,54 @@
     flex: 1;
     border-bottom: 1px dotted transparent;
     transform: translateY(-3px);
+  }
+
+  .index-frame {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 190px;
+    gap: 42px;
+    max-width: 996px;
+    margin: 0 auto;
+  }
+  .index-frame > .post-list {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .visualization-sidebar {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: 28px;
+    padding-left: 18px;
+    border-left: 1px solid var(--rule-soft);
+  }
+  .visualization-sidebar h2 {
+    margin: 0 0 12px;
+    font-family: "Cormorant Garamond", "EB Garamond", serif;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+  .visualization-sidebar .kicker {
+    margin: 0 0 8px;
+    font-variant: small-caps;
+    font-size: 12.5px;
+    letter-spacing: 0.16em;
+    color: var(--ink-soft);
+  }
+  .visualization-sidebar figure { margin: 0; }
+  .visualization-sidebar video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    border: 1px solid var(--rule-soft);
+    background: var(--ink);
+  }
+  .visualization-sidebar figcaption {
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--ink-soft);
   }
 
   /* ---------- centered actions ---------- */
@@ -285,6 +334,27 @@
     .post-list .title { white-space: normal; }
     .article h1 { font-size: 30px; }
   }
+
+  @media (max-width: 1091px) {
+    .index-frame {
+      display: flex;
+      flex-direction: column;
+      max-width: none;
+    }
+    .visualization-sidebar {
+      order: 2;
+      margin-top: 28px;
+      padding: 20px 0 0;
+      border-top: 1px solid var(--rule-soft);
+      border-left: 0;
+      border-right: 0;
+    }
+    .visualization-sidebar video { max-width: 260px; }
+  }
+
+  @media (max-width: 640px) {
+    .visualization-sidebar { margin-top: 8px; }
+  }
 </style>
 </head>
 <body>
@@ -300,48 +370,70 @@
 
     <!-- ============ INDEX VIEW ============ -->
     <section class="view view-index" id="view-index">
-      <ul class="post-list">
-        <li>
-          <span class="date">July 28, 2026</span>
-          <span class="row">
-            <a class="title" href="https://www.si.com/wnba/most-clutch-players-in-wnba-this-season" rel="noopener noreferrer">The Most Clutch Players in the WNBA This Season (SI.com)</a>
-            <span class="leader" aria-hidden="true"></span>
-          </span>
-          <span class="technical-approach">Technical approach: Semi-Markov win probability model</span>
-        </li>
-        <li>
-          <span class="date">June 17, 2026</span>
-          <span class="row">
-            <a class="title" href="https://www.si.com/wnba/breaking-down-wnbas-best-half-court-transition-teams" rel="noopener noreferrer">Breaking Down the WNBA’s Best Half-Court and Transition Teams (SI.com)</a>
-            <span class="leader" aria-hidden="true"></span>
-          </span>
-          <span class="technical-approach">Technical approach: Rules-based classifier for inferring play context from tabular play-by-play data</span>
-        </li>
-        <li>
-          <span class="date">May 14, 2026</span>
-          <span class="row">
-            <a class="title" href="RAPM/adapting-rapm-for-wnba.html">Adapting RAPM for the WNBA</a>
-            <span class="leader" aria-hidden="true"></span>
-          </span>
-          <span class="technical-approach">Technical approach: Ridge regression applied to lineup and score margin data</span>
-        </li>
-        <li>
-          <span class="date">January 26, 2026</span>
-          <span class="row">
-            <a class="title" href="https://www.si.com/ranking-top-unrivaled-lineups-2026-season-bueckers-brink-martin" rel="noopener noreferrer">Ranking the Top Lineups in Unrivaled for the 2026 Season (SI.com)</a>
-            <span class="leader" aria-hidden="true"></span>
-          </span>
-          <span class="technical-approach">Technical approach: Automated play-by-play data extraction</span>
-        </li>
-        <li>
-          <span class="date">January 11, 2026</span>
-          <span class="row">
-            <a class="title" href="https://github.com/thefalkon-1/Shrine-Bowl-x-Sumer-Sports-Analytics-Competition" rel="noopener noreferrer">OL-DL Drill Evaluation from Tracking Data (GitHub Competition Repo)</a>
-            <span class="leader" aria-hidden="true"></span>
-          </span>
-          <span class="technical-approach">Technical approach: Rules-based rep detection and tracking-derived evaluation metrics</span>
-        </li>
-      </ul>
+      <div class="index-frame">
+        <ul class="post-list">
+          <li>
+            <span class="date">September 3, 2026</span>
+            <span class="row">
+              <a class="title" href="https://www.si.com/wnba/why-veronica-burton-ranks-as-wnbas-most-impactful-player" rel="noopener noreferrer">Why Veronica Burton Ranks As the WNBA’s Most Impactful Player (SI.com)</a>
+              <span class="leader" aria-hidden="true"></span>
+            </span>
+            <span class="technical-approach">Technical approach: Prior-Informed RAPM</span>
+          </li>
+          <li>
+            <span class="date">July 28, 2026</span>
+            <span class="row">
+              <a class="title" href="https://www.si.com/wnba/most-clutch-players-in-wnba-this-season" rel="noopener noreferrer">The Most Clutch Players in the WNBA This Season (SI.com)</a>
+              <span class="leader" aria-hidden="true"></span>
+            </span>
+            <span class="technical-approach">Technical approach: Semi-Markov win probability model</span>
+          </li>
+          <li>
+            <span class="date">June 17, 2026</span>
+            <span class="row">
+              <a class="title" href="https://www.si.com/wnba/breaking-down-wnbas-best-half-court-transition-teams" rel="noopener noreferrer">Breaking Down the WNBA’s Best Half-Court and Transition Teams (SI.com)</a>
+              <span class="leader" aria-hidden="true"></span>
+            </span>
+            <span class="technical-approach">Technical approach: Rules-based classifier for inferring play context from tabular play-by-play data</span>
+          </li>
+          <li>
+            <span class="date">May 14, 2026</span>
+            <span class="row">
+              <a class="title" href="RAPM/adapting-rapm-for-wnba.html">Adapting RAPM for the WNBA</a>
+              <span class="leader" aria-hidden="true"></span>
+            </span>
+            <span class="technical-approach">Technical approach: Ridge regression applied to lineup and score margin data</span>
+          </li>
+          <li>
+            <span class="date">January 26, 2026</span>
+            <span class="row">
+              <a class="title" href="https://www.si.com/ranking-top-unrivaled-lineups-2026-season-bueckers-brink-martin" rel="noopener noreferrer">Ranking the Top Lineups in Unrivaled for the 2026 Season (SI.com)</a>
+              <span class="leader" aria-hidden="true"></span>
+            </span>
+            <span class="technical-approach">Technical approach: Automated play-by-play data extraction</span>
+          </li>
+          <li>
+            <span class="date">January 11, 2026</span>
+            <span class="row">
+              <a class="title" href="https://github.com/thefalkon-1/Shrine-Bowl-x-Sumer-Sports-Analytics-Competition" rel="noopener noreferrer">OL-DL Drill Evaluation from Tracking Data (GitHub Competition Repo)</a>
+              <span class="leader" aria-hidden="true"></span>
+            </span>
+            <span class="technical-approach">Technical approach: Rules-based rep detection and tracking-derived evaluation metrics</span>
+          </li>
+        </ul>
+
+        <aside class="visualization-sidebar" aria-labelledby="visualization-title">
+          <p class="kicker">Latest Visualization</p>
+          <figure>
+            <h2 id="visualization-title">Animating team defensive shape as a convex hull</h2>
+            <video controls playsinline preload="metadata" aria-label="Animating team defensive shape as a convex hull">
+              <source src="assets/shot_114243_3_96_defense_hull.mp4" type="video/mp4" />
+              Your browser does not support embedded video.
+            </video>
+            <figcaption>SkillCorner Spanish Liga ACB Tracking Data</figcaption>
+          </figure>
+        </aside>
+      </div>
 
       <div class="return">
         <a href="#/" data-nav="index">Return to index&nbsp;↑</a>
